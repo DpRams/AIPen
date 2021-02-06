@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}忘記密碼{% endblock %}
+{% block content %}
+
+
+<script src="{{ url_for('static',filename='jquery-3.5.1.min.js') }}"></script>
+<script src="{{ url_for('static',filename='jquery-1.6.1.min.js') }}"></script>
+
+<br>
+<br>
+<div align="center">
+    <label style="font-size:3rem; font-family:Microsoft JhengHei; font-weight:bold;">忘記密碼</label>
+</div>
+<div class="container">
+    <div class="row">
+
+        <div class="col-6">
+            <form action="/forgive" method='post'>
+                <p style="font-family:Microsoft JhengHei;">請輸入註冊信箱:</p>  <!--前端抓後端的值-->
+                <div style="width: 400px; float:left">
+                    <input type="email" id="email" name="email" class="w-100" onkeypress="if (event.keyCode == 13) {return false;}" data-toggle="tooltip" title="請輸入註冊信箱" required="required" value="{{mail}}" />
+
+                </div>
+                <div style="width: 100px; float:right">
+                    <input type="submit" class="btn btn-secondary" id="btn" value="發送驗證碼" OnClick="" />
+                </div>
+
+            </form>
+
+            <br>
+            <br>
+            <form action="/forgive" method='post'>
+                <p style="font-family:Microsoft JhengHei;">請輸入驗證碼:</p>  <!--前端抓後端的值-->
+                <div style="width: 400px; float:left">
+                    <p><input type="text" id="psd" name="psd" class="w-100" style="width: 100px" onkeypress="if (event.keyCode == 13) {return false;}" data-toggle="tooltip" title="請輸入註冊信箱" required="required" /></p>
+                </div>
+                <div style="width: 100px; float:right">
+                    <input type="button" class="btn btn-secondary" id="btn2" value="提交驗證碼" OnClick="vaild();" />
+                </div>
+            </form>
+            <input style="display:none;" id="alert" value="{{alert}}" />
+            <input style="display:none;" id="code" value="{{code}}" />
+
+
+        </div>
+
+    </div>
+</div>
+<script>
+    window.onload = function () {
+        var tip = document.getElementById('alert').value
+
+        if (tip == 0) {
+            this.console.log(tip)
+            alert('此信箱尚未註冊!')
+        }
+        if(tip==1) {
+            alert('已發送驗證碼!')
+
+        }
+
+    }
+    function vaild() {
+        var code = document.getElementById('code').value
+        var psd = document.getElementById('psd').value
+        console.log(code)
+        console.log(psd)
+
+        if (psd == code) {
+            window.location.href = "password_reset"
+
+        }
+        else {
+            alert("驗證碼輸入錯誤!請重新輸入")
+        }
+
+    }
+
+
+</script>
+
+{% endblock %}

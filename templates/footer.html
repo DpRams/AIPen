@@ -1,0 +1,224 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static',    filename='bootstrap.min.css') }}">
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
+
+        .carousel-img {
+            background-position: top;
+            background-size: cover;
+            min-height: 125%;
+        }
+        <!-- -imagebutton havor green -->
+        .red {
+            transition: all 0.5s;
+        }
+
+        .red span {
+            z-index: 2;
+            background-color: red;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .red::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            opacity: 1;
+            background-color: rgba(255,100,100,0.5);
+            transition: all 1s;
+            transform: scale(1, 1);
+        }
+
+        .red:hover::before {
+            opacity: 0;
+            -webkit-transform: scale(1, 1);
+            transform: scale(1, 1);
+        }
+        <!-- -imagebutton havor green -->
+        .green {
+            transition: all 0.5s;
+        }
+
+        .red span {
+            z-index: 2;
+            background-color: red;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .green::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            opacity: 1;
+            background-color: rgba(53,255,255,0.5);
+            transition: all 1s;
+            transform: scale(1, 1);
+        }
+
+        .green:hover::before {
+            opacity: 0;
+            -webkit-transform: scale(1, 1);
+            transform: scale(1, 1);
+        }
+        <!-- -imagebutton havor blue -->
+        .blue {
+            transition: all 0.5s;
+        }
+
+        .blue span {
+            z-index: 2;
+            background-color: blue;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .blue::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            opacity: 1;
+            background-color: rgba(0,128,255,0.5);
+            transition: all 1s;
+            transform: scale(1, 1);
+        }
+
+        .blue:hover::before {
+            opacity: 0;
+            -webkit-transform: scale(1, 1);
+            transform: scale(1, 1);
+        }
+        <!-- -imagebutton havor purple -->
+        .purple {
+            transition: all 0.5s;
+        }
+
+        .purple span {
+            z-index: 2;
+            background-color: blue;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .purple::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            opacity: 1;
+            background-color: rgba(178,102,255,0.5);
+            transition: all 1s;
+            transform: scale(1, 1);
+        }
+
+        .purple:hover::before {
+            opacity: 0;
+            -webkit-transform: scale(1, 1);
+            transform: scale(1, 1);
+        }
+        <!-- -imagebutton havor orange -->
+        .orange {
+            transition: all 0.5s;
+        }
+
+        .orange span {
+            z-index: 2;
+            background-color: blue;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .orange::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            opacity: 1;
+            background-color: rgba(255,178,102,0.5);
+            transition: all 1s;
+            transform: scale(1, 1);
+        }
+
+        .orange:hover::before {
+            opacity: 0;
+            -webkit-transform: scale(1, 1);
+            transform: scale(1, 1);
+        }
+
+        .my-background {
+        }
+
+        .MyLable {
+            z-index: 9999;
+            opacity: 1;
+            position: absolute;
+            font-size: 190%;
+            top: 30%;
+            left: 10%;
+            font-family: Microsoft JhengHei;
+            font-weight: bold;
+        }
+
+        .detail {
+            z-index: 9999;
+            opacity: 1;
+            position: absolute;
+            font-size: 190%;
+            top: 55%;
+            left: 10%;
+            font-family: Microsoft JhengHei;
+            font-weight: bold;
+        }
+
+        .textanime1 {
+            font-weight: 900;
+            font-size: 5em;
+        }
+
+        .textanime2 {
+            font-weight: 900;
+            font-size: 5em;
+        }
+    </style>
+</head>
+<body>
+    <footer>
+        <p>© 2020 Fooish</p>
+        <!-- A footer for the page. -->
+    </footer>
+    {% endblock %}
+</body>
+</html>

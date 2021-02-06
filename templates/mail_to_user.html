@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+{% block title %}生成文章歷史列表{% endblock %}
+{% block content %}
+
+<script src="{{ url_for('static',filename='jquery-3.5.1.min.js') }}"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+        integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+
+<style>
+
+    #loading {
+        z-index: 1;
+        /* padding: 10px 10px 10px; */
+        left: 43%;
+        top: 43%;
+        /* right: 50%;
+        bottom:50%; */
+ 
+        position:fixed;
+        width: 100px;
+        height: 10px;
+        text-align: center;
+        
+
+    }
+</style>
+        
+<br>
+<br>
+<div id='loading' style="display:none"><img src="../static/loading3.gif" /></div>
+<div align="center" style = "background-image: url(../static/練習70.jpg); background-size: cover; ">
+    <label style="font-size:3rem; font-family:Microsoft JhengHei; font-weight:bold;">生成文章歷史列表</label>
+</div>
+<br>
+<br>
+<br>
+<form action="/mail_to_user" method='post'>
+    <div align="center">
+    </div>
+    <br>
+    <br>
+    <div class="row">
+
+
+        {% for article in articles %}
+        <div class="col-1"></div>
+        <div class="col-4" style="background-image: url(../static/練習85.jpg); background-size: cover; ">
+            
+            <br>
+            <label>文章標題 : </label>
+            <label name="lbl_title_{{article[0]}}" id="lbl_title_{{article[0]}}">{{article[1]}}</label>
+            <br>
+            <label>文章內容 : </label>
+            <textarea class="form-control" rows="10" name="text_{{article[0]}}" id="text_{{article[0]}}">{{article[2]}}</textarea>
+            <br>
+            <div class="row">
+                <div class="col-4"></div>
+                <div class="col-8">
+                    <button type="submit" name="mail_{{article[0]}}" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="寄信" onclick="mail(this);">
+                        寄出文章
+                    </button>
+                    <button type="submit" name="rvs_{{article[0]}}" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="修改" onclick="revise(this);">
+                        更新文章
+                    </button>
+                    <button type="submit" name="rmv_{{article[0]}}" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" title="刪除" onclick="remove(this);">
+                        刪除文章
+                    </button>
+                </div>
+
+            </div>
+            <br><br>
+        </div>
+        <div class="col-1"></div>
+        <br><br>
+        {% endfor %}
+
+    </div>
+    <input type=hidden id="mail_rvs_rmv" name="mail_rvs_rmv" value="">
+    <input type=hidden id="email" name="email" value="">
+    <input type=hidden id="title_input" name="title_input" value="">
+    <input type=hidden id="text_input" name="text_input" value="">
+    <input type=hidden id="rmv" name="rmv" value="">
+    <input type=hidden id="rvs" name="rvs" value="">
+    <input type=hidden name="warning" id="warning" value="{{warning}}">
+
+</form>
+
+<!-- <style>
+        input {padding:5px 15px; background:rgb(233, 232, 232); border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px; }
+</style> -->
+
+
+<script>
+    $(document).ready(function () {
+        var warning = document.getElementById('warning').value
+        console.log(warning)
+
+        if (warning == "請登入" ) {
+            alert("請先登入會員!");
+            window.location.href = "login"
+        }
+        if (warning == "請驗證") {
+            alert("請先完成驗證");
+            window.location.href = "verification"
+        }
+
+    });
+    function mail(st) {
+
+        $('#loading').show();
+
+
+
+        $("#mail_rvs_rmv").val("mail");
+
+        var num = (st.name);
+        num = num.split("_")[1];
+
+        $("#email").val(num);
+
+        // lbl_title_id = ("#lbl_title_%s", num); js貌似沒用
+        // lbl_text_id = ("#lbl_text_%s", num); js貌似沒用
+
+
+        $('#title_input').val($("#lbl_title_" + num).text());
+        $('#text_input').val($("#text_" + num).text());
+
+  
+
+
+    }
+    function remove(st) {
+
+        $('#loading').show();
+
+        $("#mail_rvs_rmv").val("rmv");
+
+        var id = (st.name);
+        id = id.split("_")[1];
+
+        $('#rmv').val(id);
+
+
+    }
+    function revise(st) {
+
+        $('#loading').show();
+
+        $("#mail_rvs_rmv").val("rvs");
+        var id = (st.name);
+        id = id.split("_")[1];
+
+        $('#rvs').val(id);
+
+        $('#title_input').val($("#lbl_title_" + id).text());
+        $('#text_input').val($("#text_" + id).val());
+
+        //0827 Debug筆記
+        //<label> 請用text()取值
+        //<textarea> 請用val()取值
+
+
+        // $("form").on('submit',function () {
+        //         $('#title_input').val($("#lbl_title_" + id).text());
+        //         $('#text_input').val($("#text_" + id).val());
+        // });
+
+    }
+    $(function () {
+        //新增提示框的事件
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+
+{% endblock %}

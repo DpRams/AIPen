@@ -1,0 +1,24 @@
+老師提供:
+
+切割的語法如下：
+split -C 20m --numeric-suffixes original_file slit_files
+例如
+split -C 20m --numeric-suffixes model.rar model
+則會生成model01, model02, ..., model18 (00~18共 19 個檔案)，如此此19個檔案可順利上傳。
+
+合併的語法如下：
+__Unix/Linux__下載該19個檔案, 此處示範colab上的操作(故指令前多加!)(假設19個檔案是放在 https://github.com/wfhsiao/python_learning/tree/master/data/)
+!npm install -g degit
+!degit https://github.com/wfhsiao/python_learning/tree/master/data/ -f
+__Unix/Linux__下合併(__Windows__可以安裝Ubuntu subsystem來執行相同指令)
+!cat model0{0..9} model1{0..8} > data.rar
+__Windows__未安裝ubuntu subsystem, 則使用以下shell指令
+copy /b model0* + model1* data.rar
+
+檢查合併檔與原檔的差異(假設你有原檔，我測試過是無差異的)：
+!diff model.rar data.rar
+
+
+實際操作(https://www.coder.work/article/551411):
+
+若是要在Windows環境中執行文件切割，可利用Git Bash的cmd來進行操作

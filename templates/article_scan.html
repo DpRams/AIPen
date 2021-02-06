@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}圖片辨識{% endblock %}
+{% block content %}
+<style>
+
+    #loading {
+        z-index: 1;
+        /* padding: 10px 10px 10px; */
+        left: 43%;
+        top: 43%;
+        /* right: 50%;
+        bottom:50%; */
+        position: fixed;
+        width: 100px;
+        height: 10px;
+        text-align: center;
+    }
+</style>
+
+<br>
+<br>
+<div align="center" style="background-image: url(../static/圖片70.jpg); background-size: cover; ">
+    <label style="font-size:3rem; font-family:Microsoft JhengHei; font-weight:bold;">圖片辨識</label>
+</div>
+<br>
+<br>
+<br>
+<div id='loading' style="display:none"><img src="../static/loading3.gif" /></div>
+<div class="container" style="background-image: url(../static/圖片85.jpg); background-size: cover; ">
+    <br>
+    <form action="/article_scan" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input class="btn btn-secondary" type="submit" value="上傳" onclick="show();">
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-6 ddd">
+                <div class="form-group">
+                    <textarea class="form-control w-75" id="text" rows="15">{{content}}</textarea>
+                </div>
+                <div class="row">
+                    <div class="col-6"></div>
+                    <div class="col-6">
+                        <button type="button" class="btn btn-secondary" data-toggle="tooltip" data-placement="bottom" id="btn3" title="開始練習" onclick='sent2();'>
+                            寫作練習
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-6 ddd">
+                <div class="form-group">
+                    <input type="image" src="{{fileurl}}" class="w-100 h-100" value=""  disabled="disabled"/>
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+</div>
+
+
+
+<script>
+
+    function show() {
+        $('#loading').show();
+    }
+
+    function sent2() {
+        var id = document.getElementById("text").value;
+        console.log(id)
+
+        location.href = "article_practice?content=" + id;
+
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,116 @@
+﻿
+
+<style>
+    html, body {
+        height: 100%;
+    }
+
+    .ddd {
+        height: 400px;
+        overflow: hidden;
+    }
+</style>
+
+
+
+<div class="container">
+    <div class="">
+        <div class="form-group">
+
+            <input id="imgurl" type="text" style="display:none;" value="{{data}}" />
+            <label>id :</label>
+            <input id="id" value="" size="30" disabled="disabled" readonly="readonly" style="border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;" />
+            <p />
+            <label>width  :</label>
+            <input id="width" value=""size="30" disabled="disabled" readonly="readonly"style="border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;"/>
+            <p />
+            <label>height  :</label>
+            <input id="height" value="" size="30"disabled="disabled" readonly="readonly"style="border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;"/>
+            <p />
+            <label>photographer  :</label>
+            <input id="photographer" value=""size="30"disabled="disabled" readonly="readonly" style="border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;"/>
+            <p />
+            <label>description  :</label>
+            <input id="description" value=""size="40"disabled="disabled" readonly="readonly"  style="border-bottom-style:none;border-top-style:none;border-left-style:none;border-right-style:none;"/>
+            <p />
+            <label>url  :</label>
+            <input id="url" value="" size="100" disabled="disabled" readonly="readonly" style=" border-bottom-style: none; border-top-style: none; border-left-style: none; border-right-style: none;"/>
+
+        </div>
+    </div>
+</div>
+<script>
+    window.onload = function () {
+        if (opener.document.getElementById("myimg0").value == "0") {
+            
+            var nameElement = document.getElementById("imgurl").value;
+            var NewArray = new Array();
+            var NewArray = nameElement.split(",");
+            
+            document.getElementById("id").value = NewArray[8].replace("'", "").replace("'", "");
+            document.getElementById("width").value = NewArray[9].replace("'", "").replace("'", "");
+            document.getElementById("height").value = NewArray[10].replace("'", "").replace("'", "");
+            document.getElementById("photographer").value = NewArray[11].replace("'", "").replace("'", "");
+            document.getElementById("description").value = NewArray[12].replace("'", "").replace("'", "");
+            document.getElementById("url").value = NewArray[13].replace("'", "").replace("'", "").replace("]", "").replace("]", "").replace("]]", "");
+           
+            
+            //document.write("width " + NewArray[9] + '<br>');
+            //document.write("height " + NewArray[10] + '<br>');
+            //document.write("photographer " + NewArray[11] + '<br>');
+            //document.write("description " + NewArray[12] + '<br>');
+            //NewArray[13] = NewArray[13].replace("]", "")
+            //NewArray[13] = NewArray[13].replace("]", "").replace("]]", "")
+            //document.write("url " + NewArray[13]+ '<br>');
+            
+            opener.document.getElementById("myimg0").value = ""
+        }
+        if (opener.document.getElementById("myimg1").value == "1") {
+            var nameElement = document.getElementById("imgurl").value;
+            var NewArray = new Array();
+            var NewArray = nameElement.split(",");
+
+            document.getElementById("id").value = NewArray[15].replace("'", "").replace("'", "");
+            document.getElementById("width").value = NewArray[16].replace("'", "").replace("'", "");
+            document.getElementById("height").value = NewArray[17].replace("'", "").replace("'", "");
+            document.getElementById("photographer").value = NewArray[18].replace("'", "").replace("'", "");
+            document.getElementById("description").value = NewArray[19].replace("'", "").replace("'", "");
+            document.getElementById("url").value = NewArray[20].replace("'", "").replace("'", "").replace("]", "").replace("]", "").replace("]]", "");
+           
+            opener.document.getElementById("myimg1").value = ""
+        }
+        if (opener.document.getElementById("myimg2").value == "2") {
+            var nameElement = document.getElementById("imgurl").value;
+            var NewArray = new Array();
+            var NewArray = nameElement.split(",");
+
+            document.getElementById("id").value = NewArray[22].replace("'", "").replace("'", "");
+            document.getElementById("width").value = NewArray[23].replace("'", "").replace("'", "");
+            document.getElementById("height").value = NewArray[24].replace("'", "").replace("'", "");
+            document.getElementById("photographer").value = NewArray[25].replace("'", "").replace("'", "");
+            document.getElementById("description").value = NewArray[26].replace("'", "").replace("'", "");
+            document.getElementById("url").value = NewArray[27].replace("'", "").replace("'", "").replace("]", "").replace("]", "").replace("]]", "");
+            opener.document.getElementById("myimg2").value = ""
+        }
+        if (opener.document.getElementById("myimg3").value == "3") {
+            var nameElement = document.getElementById("imgurl").value;
+            var NewArray = new Array();
+            var NewArray = nameElement.split(",");
+
+            document.getElementById("id").value = NewArray[29].replace("'", "").replace("'", "");
+            document.getElementById("width").value = NewArray[30].replace("'", "").replace("'", "");
+            document.getElementById("height").value = NewArray[31].replace("'", "").replace("'", "");
+            document.getElementById("photographer").value = NewArray[32].replace("'", "").replace("'", "");
+            document.getElementById("description").value = NewArray[33].replace("'", "").replace("'", "");
+            document.getElementById("url").value = NewArray[34].replace("'", "").replace("'", "").replace("]", "").replace("]", "").replace("]]", "");
+            opener.document.getElementById("myimg3").value = ""
+        }
+
+
+
+
+
+    }
+
+</script>
+

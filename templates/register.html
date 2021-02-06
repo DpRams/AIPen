@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}註冊{% endblock %}
+{% block content %}
+
+<script src="{{ url_for('static',filename='bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static',filename='jquery-3.5.1.min.js') }}"></script>
+<script src="{{ url_for('static',filename='jquery-1.6.1.min.js') }}"></script>
+
+<br>
+<br>
+<div align="center">
+    <label style="font-size:3rem; font-family:Microsoft JhengHei; font-weight:bold;">註冊</label>
+</div>
+<div class="container">
+    <div class="row">
+
+        <div class="col-6">
+            <form action="/register" method='post'>
+                <p style="font-family:Microsoft JhengHei;">帳號:{{alert}}</p>  <!--前端抓後端的值-->
+                <p><input type="text" id="usr" name="usr" class="w-100" style="width: 100px" onkeypress="if (event.keyCode == 13) {return false;}" data-toggle="tooltip" title="請輸入帳號" required="required" /></p>
+                <p style="font-family:Microsoft JhengHei;">密碼:</p>  <!--前端抓後端的值-->
+                <p><input type="password" id="pwd" name="pwd" class="w-100" style="width: 100px" required="required" /></p>
+                <p style="font-family:Microsoft JhengHei;">確認密碼:</p>  <!--前端抓後端的值-->
+                <p><input type="password" id="repwd" name="repwd" class="w-100" style="width: 100px" required="required" oninput=";OnInput(event)" /><input id="wrong" value="" style="display:none;outline: none;border: none; color:#FF0000;" readonly="readonly" /></p>
+                <p style="font-family:Microsoft JhengHei;">信箱:</p>  <!--前端抓後端的值-->
+                <p><input type="email" id="email" name="email" class="w-100" style="width: 100px" required="required" /></p>
+                <p style="font-family:Microsoft JhengHei;">生日:</p>  <!--前端抓後端的值-->
+                <p><input type="date" id="birth" name="birth" class="w-100" style="width: 100px" required="required" /></p>
+                <p style="font-family:Microsoft JhengHei;">手機:</p>  <!--前端抓後端的值-->
+                <p><input type="number" id="phone" name="phone" class="w-100" style="width: 100px" required="required" /></p>
+
+                <input type="submit" class="btn btn-secondary" id="btn2" value="註冊" OnClick="" />
+                
+                <input style="display:none;" id="alert" value="{{repeat}}" />
+                <input style="display:none;" id="alert1" value="{{mailrepeat}}" />
+            </form>
+
+        </div>
+
+    </div>
+</div>
+<script>
+    window.onload = function () {
+        var tip = document.getElementById('alert').value
+        var mailtip = document.getElementById('alert1').value
+        if (tip == "repeat") {
+            this.console.log(tip)
+            alert('此帳號已有人註冊!')
+        }
+        if (mailtip == "mailrepeat") {
+            this.console.log(tip)
+            alert('此信箱已有人註冊!')
+        }
+    }
+
+    function OnInput(event) {
+        if ($('#pwd').val() != null && $('#repwd').val() != null) {
+            if ($('#pwd').val() != $('#repwd').val()) {
+                document.getElementById('wrong').value = "密碼輸入錯誤!"
+
+                $('#wrong').show()
+            }
+            else {
+                $('#wrong').hide()
+
+            }
+        }
+    }
+
+
+
+
+</script>
+
+{% endblock %}

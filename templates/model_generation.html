@@ -1,0 +1,223 @@
+{% extends "base.html" %}
+{% block title %}參考文章生成{% endblock %}
+{% block content %}
+<script src="{{ url_for('static',filename='bootstrap.min.js') }}"></script>
+<script src="{{ url_for('static',filename='jquery-3.5.1.min.js') }}"></script>
+<script src="{{ url_for('static',filename='jquery-1.6.1.min.js') }}"></script>
+
+
+<style>
+
+    #loading {
+        z-index: 1;
+        /* padding: 10px 10px 10px; */
+        left: 43%;
+        top: 43%;
+        /* right: 50%;
+        bottom:50%; */
+        position: fixed;
+        width: 100px;
+        height: 10px;
+        text-align: center;
+    }
+</style>
+
+
+<br>
+<br>
+<div align="center" style="background-image: url(../static/圖片70.jpg); background-size: cover; ">
+    <label style="font-size:3rem; font-family:Microsoft JhengHei; font-weight:bold;">參考文章生成</label>
+</div>
+<br>
+<br>
+<br>
+
+
+<!--margin test-->
+
+<div id='loading' style="display:none"><img src="../static/loading3.gif" /></div>
+<div class="container" style="background-image: url(../static/圖片85.jpg); background-size: cover; ">
+    <div class="row">
+        <div class="col-3">
+            <div class="" style="overflow:hidden; height:250px;"> <input type="image" src="{{data1}}" class="w-100 h-100" id="myimg0" onclick="get_properties_1();" value=""> </div>
+            <br><br><br><br>
+            <div class="" style="overflow:hidden; height:250px;"> <input type="image" src="{{data2}}" class="w-100 h-100" id="myimg1" onclick="get_properties_2();" value=""> </div>
+        </div>
+        <div class="col-6">
+            <form action="/model_generation" method='post'>
+                <p style="font-family:Microsoft JhengHei;">作文題目:</p>  <!--前端抓後端的值-->
+                <p><input type="text" id="title" name="titles" class="w-100" onkeypress="if (event.keyCode == 13) {return false;}" data-toggle="tooltip" placeholder="請輸入題目" /></p>
+                <p style="font-family:Microsoft JhengHei;">作文敘述:</p>  <!--前端抓後端的值-->
+                <p><input type="text" id="subtitle" name="subtitles" class="w-100" placeholder="請輸入作文開頭段落" /></p>
+                <div class="form-group">
+                    <label style="font-family:Microsoft JhengHei;">字數:</label>
+                    <select class="form-control" id="n1" name="value_1">
+                        <option value="100">100</option>
+                        <option value="200">200</option>
+                        <option value="300">300</option>
+                        <option value="400">400</option>
+                        <option value="500">500</option>
+                        <option value="600">600</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <div class="col-8"></div>
+                    <div class="col-4">
+                        <input type="submit" class="btn btn-secondary" id="btn1" value="確定" OnClick="loading();" />
+                        <input type="submit" class="btn btn-secondary" id="save" value="存入" OnClick="saving();" />
+                        <input type="hidden" class="btn btn-secondary" id="generate_or_save" name="generate_or_save">
+                    </div>
+                </div>
+                <br><br>
+            </form>
+
+            <div class="form-group">
+                <label style="font-family:Microsoft JhengHei;" for="mytext">題目:</label><label>{{title}}</label>
+                <br>
+                <textarea class="form-control" style="display:none;" id="mytext" rows="15">{{content}}</textarea>
+                <form name=tickform>
+                    <textarea id="tickfield" name=tickfield class="form-control" rows="15" style="overflow-y:scroll">{{content}}</textarea>
+                </form>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="" style="overflow:hidden; height:250px;"> <input type="image" src="{{data3}}" class="w-100 h-100" id="myimg2" onclick="get_properties_3();" value=""> </div>
+            <br><br><br><br>
+            <div class="" style="overflow:hidden; height:250px;"> <input type="image" src="{{data4}}" class="w-100 h-100" id="myimg3" onclick="get_properties_4();" value=""> </div>
+        </div>
+        <input type=hidden name="username" id="username" value="{{username}}">
+    </div>
+</div>
+
+
+
+
+
+<script>
+    function warming() {
+        var username = document.getElementById('username').value
+        console.log(username)
+        if (username == "尚未登入" || username == "None") {
+            alert("如果要儲存文章，建議先登入，以免遺失資料。");
+
+        }
+
+    };
+
+    //window.onload = function () {
+    //var formdata = $("#formdata").text().split(',');
+    //for (var i = 0; i < formdata.length; i++) {
+    //  if (formdata[i].trim() == "") { return; }
+    //}
+
+    //$("#title").val(formdata[0]);
+    //$("#n1").val(formdata[1]);
+    //$("#n2").val(formdata[2]);
+    //};
+    function saving() {
+
+        var username = document.getElementById('username').value
+        console.log(username)
+        if (username == "尚未登入" || username == "None") {
+            alert("請先登入會員!");
+            window.location.href = "login"
+        }
+        else {
+            $("#generate_or_save").val("save");
+        }
+    }
+
+    function loading() {
+        if ($("#title").val() == "") {
+            alert("請輸入題目")
+        } else {
+            $("#generate_or_save").val("generate");
+            $('#loading').show();
+        }
+    }
+
+
+    function get_title() {
+        var title = $("#title").val();
+        var n1 = $("#n1 option:selected").text();
+        var n2 = $("#n2 option:selected").text();
+        var mytext = title + "," + n1 + "," + n2;
+        $("#mytext").val(mytext);
+
+        var imgarr = $("#imgurl").text().split('○');
+        for (var i = 0; i < imgarr.length; i++) {
+            var myid = "#myimg" + i;
+            $(myid).attr("src", imgarr[i]);
+        }
+
+    }
+    function get_properties_1() {
+        document.getElementById('myimg0').value = "0"
+        //document.getElementById('myimg1').value = "1"
+        //document.getElementById('myimg2').value = "2"
+        //document.getElementById('myimg3').value = "3"
+        window.open(href = "/get_properties", "popup", config = "height=250,width=500", "scrollbars=yes", "status=no", "resize=no");
+
+    }
+    function get_properties_2() {
+        //document.getElementById('myimg0').value = "0"
+        document.getElementById('myimg1').value = "1"
+        //document.getElementById('myimg2').value = "2"
+        //document.getElementById('myimg3').value = "3"
+        window.open(href = "/get_properties", "popup", config = "height=250,width=500", "scrollbars=yes", "status=no", "resize=no");
+
+    }
+    function get_properties_3() {
+        //document.getElementById('myimg0').value = "0"
+        //document.getElementById('myimg1').value = "1"
+        document.getElementById('myimg2').value = "2"
+        //document.getElementById('myimg3').value = "3"
+        window.open(href = "/get_properties", "popup", config = "height=250,width=500", "scrollbars=yes", "status=no", "resize=no");
+
+    }
+    function get_properties_4() {
+        //document.getElementById('myimg0').value = "0"
+        //document.getElementById('myimg1').value = "1"
+        //document.getElementById('myimg2').value = "2"
+        document.getElementById('myimg3').value = "3"
+        window.open(href = "/get_properties", "popup", config = "height=250,width=500", "scrollbars=yes", "status=no", "resize=no");
+
+    }
+
+
+
+    mytext = new String($("#mytext").val());
+    console.log(mytext);
+
+    var x = 0; pos = 0;
+
+    var l = mytext.length;
+
+    function textticker() {
+
+        document.tickform.tickfield.value = mytext.substring(0, pos);
+
+        if (pos++ == l) {
+
+            pos = 0;
+
+            setTimeout("textticker()", 500000 & 500001);
+
+            if (++x == l) x = 0;
+
+            l = mytext.length;
+
+        } else
+
+            setTimeout("textticker()", 150);
+
+    }
+    setInterval(textticker(), 1000);
+    setInterval(warming(), 1000);
+    $(function () {
+        //新增提示框的事件
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
+</script>
+{% endblock %}
